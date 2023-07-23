@@ -1,0 +1,42 @@
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "email": "liliia@gmail.com",
+  "password": "lilu1234"
+}
+
+###
+
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "email": "maria@gmail.com",
+  "password": "maria1234"
+}
+###
+
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "title": "Team Building",
+  "date": "06.08.2023"
+}
+
+###
+
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "title": "Birthday of boss",
+  "date": "15.09.2023"
+}
+
+### Получение всех пользователей
+GET http://localhost:8080/api/users
+
+### Получение всех событий
+GET http://localhost:8080/api/events
