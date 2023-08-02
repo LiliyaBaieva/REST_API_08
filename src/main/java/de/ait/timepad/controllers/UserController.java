@@ -1,34 +1,43 @@
 package de.ait.timepad.controllers;
 
+import de.ait.timepad.controllers.api.UsersApi;
 import de.ait.timepad.dto.NewUserDto;
+import de.ait.timepad.dto.UpdatedUserDto;
 import de.ait.timepad.dto.UserDto;
 import de.ait.timepad.dto.UsersDto;
 import de.ait.timepad.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+public class UserController implements UsersApi {
 
     //объявляем функционал (где лежит)
     private final UserService userService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-//    @ResponseBody - назначили в классе @RestController, чтоб не писат для каждого метода
-// показывает, что нужно вернуть данные в теле ответе в формате JSON
-    public UserDto addUsers(@RequestBody NewUserDto newUser){ //нужно вытащить данные из тела в формате JSON
+    public UserDto addUsers(NewUserDto newUser){
         return userService.addUser(newUser);
     }
 
-
-    @GetMapping
     public UsersDto getAllUsers(){
         return userService.getAllUsers();
+    }
+
+    @Override
+    public UserDto deleteUser(Long userId) {
+        return userService.deleteUser(userId);
+    }
+
+    @Override
+    public UserDto updateUser(Long userId, UpdatedUserDto updatedUser) {
+        return userService.updateUser(userId, updatedUser);
+    }
+
+    @Override
+    public UserDto getUser(Long userId) {
+        return userService.getUser(userId);
     }
 
 }

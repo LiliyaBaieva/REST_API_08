@@ -6,14 +6,19 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class EventRepositoryImpl implements EventRepository {
     private static List<Event> events = new ArrayList<>();
     @Override
     public void save(Event event) {
-        event.setId((long)events.size() + 1);
-        events.add(event);
+        if(event.getId() == null){
+            event.setId((long)events.size() + 1);
+            events.add(event);
+        } else {
+            //TODO
+        }
     }
 
     @Override
@@ -25,4 +30,29 @@ public class EventRepositoryImpl implements EventRepository {
     public void clear() {
         events.clear();
     }
+
+    @Override
+    public Optional<Event> findById(Long eventId) {
+        for(Event event : events){
+            if(event.getId().equals(eventId)){
+                return Optional.of(event);
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public void delete(Event event) {
+        events.remove(event);
+    }
 }
+
+
+
+
+
+
+
+
+
+

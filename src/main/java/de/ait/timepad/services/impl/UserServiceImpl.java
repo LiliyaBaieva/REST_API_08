@@ -1,8 +1,11 @@
 package de.ait.timepad.services.impl;
 
 import de.ait.timepad.dto.NewUserDto;
+import de.ait.timepad.dto.UpdatedUserDto;
 import de.ait.timepad.dto.UserDto;
 import de.ait.timepad.dto.UsersDto;
+import de.ait.timepad.exceptions.ForbiddenOperationException;
+import de.ait.timepad.exceptions.NotFoundException;
 import de.ait.timepad.models.User;
 import de.ait.timepad.repositories.UserRepository;
 import de.ait.timepad.services.UserService;
@@ -18,6 +21,7 @@ import static de.ait.timepad.dto.UserDto.from;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+
     @Override
     public UserDto addUser(NewUserDto newUser) {
         User user = User.builder()
@@ -56,5 +60,50 @@ public class UserServiceImpl implements UserService {
                 .users(from(users))//найди обычных юзеров и с помощью метода from переведи в usersDto
                 .count(users.size())
                 .build();
+    }
+
+    @Override
+    public UserDto deleteUser(Long userId) {
+//        Optional<User> user = userRepository.findByID(userId);
+//
+//        if(user.isEmpty()) {
+//            throw new NotFoundException(
+//                    "User with id <" + userId + "> not found"
+//            );
+//        }
+
+        User user = getUserOrThrow(userId);
+
+        userRepository.delete(user);
+
+        return from(user);
+    }
+
+    private User getUserOrThrow(Long userId) {
+        User user = userRepository.findByID(userId).orElseThrow(
+                () -> new NotFoundException("User with id <" + userId + "> not found")
+        );
+        return user;
+    }
+
+    @Override
+    public UserDto updateUser(Long userId, UpdatedUserDto updatedUser) {
+        User user = getUserOrThrow(userId); //нашли пользователя
+
+        if(updatedUser.getNewRole().equals("ADMIN")){
+            throw new ForbiddenOperationException("Not allowed to make an administrator");
+        }
+
+        user.setState(User.State.valueOf(updatedUser.getNewState()));
+        user.setRole(User.Role.valueOf(updatedUser.getNewRole()));
+
+        userRepository.save(user);
+
+        return from(user);
+    }
+
+    @Override
+    public UserDto getUser(Long userId) {
+        return from(getUserOrThrow(userId));
     }
 }
