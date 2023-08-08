@@ -7,14 +7,17 @@ import de.ait.timepad.dto.NewEventDto;
 import de.ait.timepad.dto.UpdatedEventDto;
 import de.ait.timepad.services.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
 public class EventController implements EventsApi {
     private final EventService eventService;
-    public EventDto addEvent (NewEventDto newEvent){
-        return eventService.addEvent(newEvent);
+    public ResponseEntity<EventDto> addEvent (NewEventDto newEvent){
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(eventService.addEvent(newEvent));
     }
 
     public EventsDto getAllEvents(){

@@ -1,12 +1,11 @@
 package de.ait.timepad.controllers;
 
 import de.ait.timepad.controllers.api.UsersApi;
-import de.ait.timepad.dto.NewUserDto;
-import de.ait.timepad.dto.UpdatedUserDto;
-import de.ait.timepad.dto.UserDto;
-import de.ait.timepad.dto.UsersDto;
+import de.ait.timepad.dto.*;
 import de.ait.timepad.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,8 +16,14 @@ public class UserController implements UsersApi {
     //объявляем функционал (где лежит)
     private final UserService userService;
 
-    public UserDto addUsers(NewUserDto newUser){
-        return userService.addUser(newUser);
+//    public UserDto addUsers(NewUserDto newUser){
+//        return userService.addUser(newUser);
+//    }
+
+    public ResponseEntity<UserDto> addUsers(NewUserDto newUser){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userService.addUser(newUser));
     }
 
     public UsersDto getAllUsers(){
@@ -38,6 +43,11 @@ public class UserController implements UsersApi {
     @Override
     public UserDto getUser(Long userId) {
         return userService.getUser(userId);
+    }
+
+    @Override
+    public ArticlesDto getArticlesOfUser(Long userId) {
+        return userService.getArticlesOfUser(userId);
     }
 
 }

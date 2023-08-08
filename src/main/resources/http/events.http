@@ -1,0 +1,25 @@
+### add event
+POST http://localhost:8080/api/events
+Content-Type: application/json
+
+{
+  "title": "Team Building",
+  "date": "06.08.2023"
+}
+
+### Получение всех событий
+GET http://localhost:8080/api/events
+
+### Удаление события
+DELETE http://localhost:8080/api/events/1
+
+### обновление события
+PUT http://localhost:8080/api/events/2
+Content-Type: application/json
+
+{
+  "newDate" : "05.01.2023"
+}
+
+### Get event
+GET http://localhost:8080/api/events/1

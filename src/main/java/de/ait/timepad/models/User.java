@@ -24,6 +24,6 @@ public class User {
     private Role role;
     private State state;
 
-    private List<Event> events;
+    private List<Article> articles;
 
 }

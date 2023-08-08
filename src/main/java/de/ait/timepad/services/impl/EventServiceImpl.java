@@ -51,7 +51,7 @@ public class EventServiceImpl implements EventService {
     }
 
     private Event getEventOrThrow(Long eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(
+        Event event = eventRepository.findByID(eventId).orElseThrow(
                 ()-> new NotFoundException("Event with id <" + eventId +"> not found")
         );
         return event;

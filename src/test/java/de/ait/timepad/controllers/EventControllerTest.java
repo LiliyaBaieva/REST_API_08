@@ -55,7 +55,7 @@ class EventControllerTest {
         @Test
         void get_all_events_test() throws Exception {
             eventRepository.save(Event.builder().title("First").date("01.01.2024").build());
-            eventRepository.save(Event.builder().title("Second").date("02.01.2024").build());
+            eventRepository.save(Event.builder() .title("Second").date("02.01.2024").build());
 
             mockMvc.perform(get("/api/events")).andDo(print())
                     .andExpect(jsonPath("$.count", is(2)));

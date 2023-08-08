@@ -1,20 +1,20 @@
 package de.ait.timepad.services.impl;
 
-import de.ait.timepad.dto.NewUserDto;
-import de.ait.timepad.dto.UpdatedUserDto;
-import de.ait.timepad.dto.UserDto;
-import de.ait.timepad.dto.UsersDto;
+import de.ait.timepad.dto.*;
 import de.ait.timepad.exceptions.ForbiddenOperationException;
 import de.ait.timepad.exceptions.NotFoundException;
+import de.ait.timepad.models.Article;
 import de.ait.timepad.models.User;
 import de.ait.timepad.repositories.UserRepository;
 import de.ait.timepad.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static de.ait.timepad.dto.UserDto.from;
+import static de.ait.timepad.dto.ArticleDto.from;
 
 @RequiredArgsConstructor
 @Service
@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
                         .email(newUser.getEmail())
                         .password(newUser.getPassword())
                         .role(User.Role.USER)
+                        .articles(new ArrayList<>())
                         .state(User.State.NOT_CONFIRMED)
                         .build();
 
@@ -105,5 +106,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto getUser(Long userId) {
         return from(getUserOrThrow(userId));
+    }
+
+    @Override
+    public ArticlesDto getArticlesOfUser(Long userId) {
+        User user = getUserOrThrow(userId);
+
+        return ArticlesDto.builder()
+                .articles(from(user.getArticles()))
+                .count(user.getArticles().size())
+                .build();
     }
 }

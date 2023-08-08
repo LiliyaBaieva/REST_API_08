@@ -27,23 +27,25 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public void clear() {
-        events.clear();
-    }
-
-    @Override
-    public Optional<Event> findById(Long eventId) {
+    public Optional<Event> findByID(Long eventId) {
         for(Event event : events){
             if(event.getId().equals(eventId)){
                 return Optional.of(event);
             }
         }
+
         return Optional.empty();
     }
+
 
     @Override
     public void delete(Event event) {
         events.remove(event);
+    }
+
+    @Override
+    public void clear() {
+        events.clear();
     }
 }
 

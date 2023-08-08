@@ -16,14 +16,6 @@ Content-Type: application/json
   "password": "maria1234"
 }
 
-### add event
-POST http://localhost:8080/api/events
-Content-Type: application/json
-
-{
-  "title": "Team Building",
-  "date": "06.08.2023"
-}
 
 ###
 
@@ -38,14 +30,8 @@ Content-Type: application/json
 ### Получение всех пользователей
 GET http://localhost:8080/api/users
 
-### Получение всех событий
-GET http://localhost:8080/api/events
-
 ### Удаление пользователя
 DELETE http://localhost:8080/api/users/2
-
-### Удаление события
-DELETE http://localhost:8080/api/events/1
 
 ### Обновление пользователя 1
 PUT http://localhost:8080/api/users/1
@@ -65,16 +51,15 @@ Content-Type: application/json
   "newState" : "CONFIRMED"
 }
 
-### обновление события
-PUT http://localhost:8080/api/events/2
-Content-Type: application/json
-
-{
-  "newDate" : "05.01.2023"
-}
-
 ### Get user
 GET http://localhost:8080/api/users/1
 
-### Get event
-GET http://localhost:8080/api/events/1
+
+
+
+
+
+
+
+
+

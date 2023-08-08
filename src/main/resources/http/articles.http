@@ -1,0 +1,52 @@
+### Add article of Liliia - 1
+
+POST http://localhost:8080/api/articles
+Content-Type: application/json
+
+{
+  "text": "Something nice about Liliia",
+  "aboutUserId": 1,
+  "publishDate": "2022-02-02"
+
+}
+
+### Add article of Liliia - 2
+
+POST http://localhost:8080/api/articles
+Content-Type: application/json
+
+{
+  "text": "Have a good news",
+  "aboutUserId": 1,
+  "publishDate": "2022-01-02"
+}
+
+### Add article of Liliia - 3
+
+POST http://localhost:8080/api/articles
+Content-Type: application/json
+
+{
+  "text": "Have a good news",
+  "aboutUserId": 1,
+  "publishDate": "2022-02-22"
+}
+
+### Add article of Liliia - 4
+
+POST http://localhost:8080/api/articles
+Content-Type: application/json
+
+{
+  "text": "Have a good news",
+  "aboutUserId": 1,
+  "publishDate": "2021-02-22"
+}
+
+### Get all articles about Liliia
+
+GET http://localhost:8080/api/users/1/articles
+
+### Get all articles in date
+
+GET http://localhost:8080/api/articles?year=2022&month=02

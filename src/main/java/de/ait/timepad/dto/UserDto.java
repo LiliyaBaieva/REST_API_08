@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class UserDto {
     @Schema(description = "Users id", example = "1")
     private Long id;
 
-    @Schema(description = "Users email", example = "example@mail.com")
+    @Schema(description = "Users email. Can not be empty", example = "example@mail.com")
     private String email;
 
     @Schema(description = "Users role: ADMIN, USER, MANAGER", example = "USER")
